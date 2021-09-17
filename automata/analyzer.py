@@ -1042,18 +1042,6 @@ class Analyzer:
             self.buffer = ''
             self.columna += 1 
 
-    def impTokens(self):
-        print("Lexema,\tToken\tFila\tColumna")
-        for i in self.listaTokens:
-            print(i.enviarData())
-
-    def impErrores(self):
-        print("Descripción,\tFila,\tColumna")
-        if len(self.listaErrores) == 0:
-            print("NO HAY ERRORES")
-        else:
-            for i in self.listaErrores:
-                print(i.imprimirData())
     def getMapas(self):
         return self.listaMatrices
 
@@ -1076,14 +1064,17 @@ class Analyzer:
         else:       
             re += """
             <table>
-                <tr><th>Caracter</th><th>Fila</th><th>Columna</th></tr>\n
+            <thead>
+                <tr><th>&nbsp;&nbsp;&nbsp;&nbsp;Caracter&nbsp;&nbsp;</th><th>&nbsp;&nbsp;Fila&nbsp;&nbsp;</th><th>&nbsp;&nbsp;Columna&nbsp;&nbsp;</th></tr>\n
+            </thead>
+            <tbody>
             """
             for i in range(len(self.listaErrores)):
                 re += "\t<tr><td>{}</td><td>{}</td><td>{}</td></tr>\n".format(
                     self.listaErrores[i].descripcion,
                     self.listaErrores[i].linea,
                     self.listaErrores[i].columna)
-            re += "</table>"
+            re += "\n\t</tbody>\n</table>"
         re+= """
         </body>
         </html>
@@ -1104,7 +1095,10 @@ class Analyzer:
         <body>
             <h1>REPORTE DE TOKENS</h1>
             <table>
-                <tr><th>LEXEMA</th><th>TOKEN</th><th>LINEA</th><th>COLUMNA</th></tr>\n
+                </thead>
+                <tr><th>&nbsp;&nbsp;LEXEMA&nbsp;&nbsp;</th><th>&nbsp;&nbsp;TOKEN&nbsp;&nbsp;</th><th>&nbsp;&nbsp;LINEA&nbsp;&nbsp;</th><th>&nbsp;&nbsp;COLUMNA&nbsp;&nbsp;</th></tr>\n
+                </thead>
+            <tbody>
         """
         for i in range(len(self.listaTokens)):
             re += "\t\t<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>\n".format(
@@ -1113,6 +1107,7 @@ class Analyzer:
                     self.listaTokens[i].linea,
                     self.listaTokens[i].columna)
         re += """
+                </tbody>
                 </table>
             </body>
             </html>
